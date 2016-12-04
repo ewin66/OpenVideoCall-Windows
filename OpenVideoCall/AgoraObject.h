@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../SDK/include/IAgoraRtcEngine.h"
+#include "../../../SDK/include/IAgoraRtcEngine.h"
 #include "AGEngineEventHandler.h"
 
 #define AVC_VER _T("V1.7.0, Build233, 09/29/2016, SDK1.7.0")
