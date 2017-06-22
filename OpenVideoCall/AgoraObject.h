@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../../../SDK/include/IAgoraRtcEngine.h"
+#include <IAgoraRtcEngine.h>
 #include "AGEngineEventHandler.h"
 
 #define AVC_VER _T("V1.7.0, Build233, 09/29/2016, SDK1.7.0")
@@ -58,7 +58,7 @@ public:
 	BOOL EnableVideo(BOOL bEnable = TRUE);
 	BOOL IsVideoEnabled();
 
-	BOOL EnableScreenCapture(HWND hWnd, BOOL bEnable = TRUE);
+	BOOL EnableScreenCapture(HWND hWnd, int nCapFPS = 15, LPCRECT lpCapRect = NULL, BOOL bEnable = TRUE);
 	BOOL IsScreenCaptureEnabled();
 
 	BOOL MuteLocalAudio(BOOL bMuted = TRUE);

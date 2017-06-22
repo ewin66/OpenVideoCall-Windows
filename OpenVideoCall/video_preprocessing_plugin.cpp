@@ -25,6 +25,13 @@ public:
     LogMessage(msg);
     return true;
   }
+  virtual bool onMixedAudioFrame(AudioFrame& audioFrame)
+  {
+	  char msg[256];
+	  sprintf_s(msg, "%s: samples=%d, channel=%d, fs=%d\n", __FUNCTION__, audioFrame.samples, audioFrame.channels, audioFrame.samplesPerSec);
+	  LogMessage(msg);
+	  return true;
+  }
   virtual bool onPlaybackAudioFrameBeforeMixing(unsigned int uid, AudioFrame& audioFrame) override
   {
     char msg[256];
@@ -65,7 +72,7 @@ static AgoraVideoFrameObserver s_videoFrameObserver;
 int load_preprocessing_plugin(agora::rtc::IRtcEngine* engine)
 {
   agora::util::AutoPtr<agora::media::IMediaEngine> mediaEngine;
-  mediaEngine.queryInterface(*engine, agora::rtc::AGORA_IID_MEDIA_ENGINE);
+  mediaEngine.queryInterface(engine, agora::rtc::AGORA_IID_MEDIA_ENGINE);
   if (mediaEngine)
   {
     mediaEngine->registerAudioFrameObserver(&s_audioFrameObserver);
@@ -77,7 +84,7 @@ int load_preprocessing_plugin(agora::rtc::IRtcEngine* engine)
 int unload_preprocessing_plugin(agora::rtc::IRtcEngine* engine)
 {
   agora::util::AutoPtr<agora::media::IMediaEngine> mediaEngine;
-  mediaEngine.queryInterface(*engine, agora::rtc::AGORA_IID_MEDIA_ENGINE);
+  mediaEngine.queryInterface(engine, agora::rtc::AGORA_IID_MEDIA_ENGINE);
   if (mediaEngine)
   {
     mediaEngine->registerAudioFrameObserver(NULL);

@@ -17,8 +17,8 @@ CAgoraPlayoutManager::~CAgoraPlayoutManager()
 
 BOOL CAgoraPlayoutManager::Create(IRtcEngine *lpRtcEngine)
 {
-	m_ptrDeviceManager = new AAudioDeviceManager(*lpRtcEngine);
-	if (m_ptrDeviceManager->get() == NULL)
+	m_ptrDeviceManager = new AAudioDeviceManager(lpRtcEngine);
+	if (m_ptrDeviceManager == NULL || m_ptrDeviceManager->get() == NULL)
 		return FALSE;
 
 	m_lpCollection = (*m_ptrDeviceManager)->enumeratePlaybackDevices();
@@ -47,6 +47,9 @@ UINT CAgoraPlayoutManager::GetVolume()
 {
 	int nVol = 0;
 
+	if (m_ptrDeviceManager == NULL || m_ptrDeviceManager->get() == NULL)
+		return 0;
+
 	(*m_ptrDeviceManager)->getPlaybackDeviceVolume(&nVol);
 
 	return (UINT)nVol;
@@ -54,6 +57,9 @@ UINT CAgoraPlayoutManager::GetVolume()
 
 BOOL CAgoraPlayoutManager::SetVolume(UINT nVol)
 {
+	if (m_ptrDeviceManager == NULL || m_ptrDeviceManager->get() == NULL)
+		return 0;
+
 	int nRet = (*m_ptrDeviceManager)->setPlaybackDeviceVolume((int)nVol);
 
 	return nRet == 0 ? TRUE : FALSE;
@@ -61,6 +67,9 @@ BOOL CAgoraPlayoutManager::SetVolume(UINT nVol)
 
 UINT CAgoraPlayoutManager::GetDeviceCount()
 {
+	if (m_lpCollection == NULL)
+		return 0;
+
 	return (UINT)m_lpCollection->getCount();
 }
 
@@ -96,6 +105,9 @@ CString CAgoraPlayoutManager::GetCurDeviceID()
 	CString		str;
 	CHAR		szDeviceID[MAX_DEVICE_ID_LENGTH];
 	
+	if (m_ptrDeviceManager == NULL || m_ptrDeviceManager->get() == NULL)
+		return str;
+
 	(*m_ptrDeviceManager)->getPlaybackDevice(szDeviceID);
 
 #ifdef UNICODE
@@ -110,6 +122,9 @@ CString CAgoraPlayoutManager::GetCurDeviceID()
 
 BOOL CAgoraPlayoutManager::SetCurDevice(LPCTSTR lpDeviceID)
 {
+	if (m_ptrDeviceManager == NULL || m_ptrDeviceManager->get() == NULL)
+		return FALSE;
+
 #ifdef UNICODE
 	CHAR szDeviceID[128];
 	::WideCharToMultiByte(CP_ACP, 0, lpDeviceID, -1, szDeviceID, 128, NULL, NULL);
@@ -124,6 +139,9 @@ BOOL CAgoraPlayoutManager::SetCurDevice(LPCTSTR lpDeviceID)
 void CAgoraPlayoutManager::TestPlaybackDevice(UINT nWavID, BOOL bTestOn)
 {
 	TCHAR	szWavPath[MAX_PATH];
+
+	if (m_ptrDeviceManager == NULL || m_ptrDeviceManager->get() == NULL)
+		return;
 
 	::GetModuleFileName(NULL, szWavPath, MAX_PATH);
 	LPTSTR lpLastSlash = (LPTSTR)_tcsrchr(szWavPath, _T('\\')) + 1;

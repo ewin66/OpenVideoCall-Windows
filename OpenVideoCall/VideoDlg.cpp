@@ -362,7 +362,7 @@ void CVideoDlg::OnBnClickedBtnclose()
     CAgoraObject::GetAgoraObject()->MuteLocalAudio(FALSE);
     m_btnAudio.SwitchButtonStatus(CAGButton::AGBTN_NORMAL);
 
-    CAgoraObject::GetAgoraObject()->EnableScreenCapture(NULL, FALSE);
+    CAgoraObject::GetAgoraObject()->EnableScreenCapture(NULL, 0, NULL, FALSE);
     m_btnScrCap.SwitchButtonStatus(CAGButton::AGBTN_NORMAL);
 
     m_dlgChat.ShowWindow(SW_HIDE);
@@ -476,7 +476,7 @@ void CVideoDlg::OnBnClickedScreenshare()
 {
     IRtcEngine *lpRtcEngine = CAgoraObject::GetEngine();
 
-	CAgoraObject::GetAgoraObject()->EnableScreenCapture(::GetDesktopWindow(), TRUE);
+	CAgoraObject::GetAgoraObject()->EnableScreenCapture(::GetDesktopWindow(), 15, NULL, TRUE);
 	m_btnScrCap.SwitchButtonStatus(CAGButton::AGBTN_PUSH);
     
     CAgoraObject::GetAgoraObject()->EnableLocalRender(FALSE);
@@ -532,7 +532,7 @@ void CVideoDlg::OnBnClickedBtnScreenCapture()
 	CAgoraObject *lpAgora = CAgoraObject::GetAgoraObject();
 	
 	if (lpAgora->IsScreenCaptureEnabled()) {
-		lpAgora->EnableScreenCapture(NULL, FALSE);
+		lpAgora->EnableScreenCapture(NULL, 0, NULL, FALSE);
 		m_btnScrCap.SwitchButtonStatus(CAGButton::AGBTN_NORMAL);
         CAgoraObject::GetAgoraObject()->EnableLocalRender(TRUE);
 	}
@@ -1204,7 +1204,7 @@ LRESULT CVideoDlg::OnWindowShareStart(WPARAM wParam, LPARAM lParam)
         m_wndLocal.Invalidate(TRUE);
     }
 
-	CAgoraObject::GetAgoraObject()->EnableScreenCapture((HWND)wParam, TRUE);
+	CAgoraObject::GetAgoraObject()->EnableScreenCapture((HWND)wParam, 15, NULL, TRUE);
 	m_btnScrCap.SwitchButtonStatus(CAGButton::AGBTN_PUSH);
 
 	return 0;
