@@ -35,10 +35,8 @@ protected:
     afx_msg void OnStnClickedSlkainDevice();
     afx_msg void OnStnClickedSlkaoutDevice();
     afx_msg void OnStnClickedSlkcamDevice();
+	afx_msg void OnStnClickedSlkechoDevice();
 
-//	afx_msg void OnBnClickedBtnainDevice();
-//	afx_msg void OnBnClickedBtnaoutDevice();
-//	afx_msg void OnBnClickedBtncamDevice();
 	afx_msg void OnBnClickedBtncancelDevice();
 	afx_msg void OnBnClickedBtnconfirmDevice();
 
@@ -64,6 +62,7 @@ private:
     CAGLinkCtrl       m_slkAudInTest;
     CAGLinkCtrl       m_slkAudOutTest;
     CAGLinkCtrl       m_slkCamTest;
+	CAGLinkCtrl		  m_slkEchoTest;
 
 	CAGSliderCtrl	m_sldAInVol;
 	CAGSliderCtrl	m_sldAOutVol;

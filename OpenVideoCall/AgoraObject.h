@@ -71,6 +71,9 @@ public:
 
 	BOOL EnableNetworkTest(BOOL bEnable);
 
+	BOOL EnableEchoTest(BOOL bEnable = TRUE);
+	BOOL IsEchoTesting() { return m_bEchoTest; };
+
 	BOOL LocalVideoPreview(HWND hVideoWnd, BOOL bPreviewOn = TRUE);
 
 	BOOL SetLogFilter(LOG_FILTER_TYPE logFilterType, LPCTSTR lpLogPath);
@@ -106,6 +109,8 @@ private:
 
 	BOOL		m_bLocalAudioMuted;
 	BOOL		m_bLocalVideoMuted;
+	BOOL		m_bEchoTest;
+
 	BOOL		m_bScreenCapture;
 
 //	int			m_nCodecType;

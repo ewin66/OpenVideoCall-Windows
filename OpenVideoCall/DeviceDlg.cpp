@@ -33,6 +33,7 @@ void CDeviceDlg::DoDataExchange(CDataExchange* pDX)
     DDX_Control(pDX, IDC_SLKAIN_DEVICE, m_slkAudInTest);
     DDX_Control(pDX, IDC_SLKAOUT_DEVICE, m_slkAudOutTest);
     DDX_Control(pDX, IDC_SLKCAM_DEVICE, m_slkCamTest);
+	DDX_Control(pDX, IDC_SLKECHO_DEVICE, m_slkEchoTest);
 }
 
 
@@ -46,6 +47,8 @@ BEGIN_MESSAGE_MAP(CDeviceDlg, CDialogEx)
     ON_STN_CLICKED(IDC_SLKAIN_DEVICE, &CDeviceDlg::OnStnClickedSlkainDevice)
     ON_STN_CLICKED(IDC_SLKAOUT_DEVICE, &CDeviceDlg::OnStnClickedSlkaoutDevice)
     ON_STN_CLICKED(IDC_SLKCAM_DEVICE, &CDeviceDlg::OnStnClickedSlkcamDevice)
+	ON_STN_CLICKED(IDC_SLKECHO_DEVICE, &CDeviceDlg::OnStnClickedSlkechoDevice)
+
 END_MESSAGE_MAP()
 
 
@@ -115,6 +118,8 @@ void CDeviceDlg::InitCtrls()
     m_slkAudOutTest.MoveWindow(405, 200, 72, 40, TRUE);
     m_slkCamTest.SetFont(&m_ftLink);
     m_slkCamTest.MoveWindow(405, 325, 72, 40, TRUE);
+	m_slkEchoTest.SetFont(&m_ftLink);
+	m_slkEchoTest.MoveWindow(405, 425, 72, 40, TRUE);
     
     m_btnCancel.MoveWindow(66, ClientRect.Height() - 88, 180, 36, TRUE);
 //    m_btnCancel.EnableRoundCorner(TRUE);
@@ -196,6 +201,10 @@ void CDeviceDlg::OnShowWindow(BOOL bShow, UINT nStatus)
 		m_agPlayout.Close();
 		m_agAudioin.Close();
 		m_agCamera.Close();
+
+		CAgoraObject::GetAgoraObject()->EnableEchoTest(FALSE);
+		m_slkEchoTest.SetWindowText(_T("EchoTest"));
+
 		return;
 	}
 
@@ -359,4 +368,18 @@ void CDeviceDlg::OnStnClickedSlkcamDevice()
         m_agCamera.TestCameraDevice(m_wndVideoTest.GetVideoSafeHwnd(), TRUE);
         m_slkCamTest.SetWindowText(LANG_STR("IDS_DEVICE_BTNTESTOFF"));
     }
+}
+
+void CDeviceDlg::OnStnClickedSlkechoDevice()
+{
+	CAgoraObject *lpAgoraObject = CAgoraObject::GetAgoraObject();
+
+	if (lpAgoraObject->IsEchoTesting()) {
+		lpAgoraObject->EnableEchoTest(FALSE);
+		m_slkEchoTest.SetWindowText(_T("EchoTest"));
+	}
+	else{
+		lpAgoraObject->EnableEchoTest(TRUE);
+		m_slkEchoTest.SetWindowText(_T("StopEcho"));
+	}
 }

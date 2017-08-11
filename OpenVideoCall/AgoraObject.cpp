@@ -15,6 +15,7 @@ CAgoraObject::CAgoraObject(void)
 	, m_bVideoEnable(FALSE)
 	, m_bLocalAudioMuted(FALSE)
 	, m_bScreenCapture(FALSE)
+	, m_bEchoTest(FALSE)
 	, m_nSelfUID(0)
 {
 	m_strChannelName.Empty();
@@ -372,6 +373,21 @@ BOOL CAgoraObject::EnableNetworkTest(BOOL bEnable)
 		ret = m_lpAgoraEngine->enableLastmileTest();
 	else
 		ret = m_lpAgoraEngine->disableLastmileTest();
+
+	return ret == 0 ? TRUE : FALSE;
+}
+
+BOOL CAgoraObject::EnableEchoTest(BOOL bEnable)
+{
+	int ret = 0;
+
+	if (bEnable)
+		ret = m_lpAgoraEngine->startEchoTest();
+	else
+		ret = m_lpAgoraEngine->stopEchoTest();
+
+	if (ret == 0)
+		m_bEchoTest = bEnable;
 
 	return ret == 0 ? TRUE : FALSE;
 }
