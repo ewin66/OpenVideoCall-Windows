@@ -132,7 +132,6 @@ enum WARN_CODE_TYPE
     // sdk: 100~1000
     WARN_SWITCH_LIVE_VIDEO_TIMEOUT = 111,
 	WARN_SET_CLIENT_ROLE_TIMEOUT = 118,
-    WARN_SET_CLIENT_ROLE_NOT_AUTHORIZED = 119,
 };
 
 enum ERROR_CODE_TYPE
@@ -171,6 +170,7 @@ enum ERROR_CODE_TYPE
 	ERR_BITRATE_LIMIT = 115,
 	ERR_TOO_MANY_DATA_STREAMS = 116,
 	ERR_STREAM_MESSAGE_TIMEOUT = 117,
+    ERR_SET_CLIENT_ROLE_NOT_AUTHORIZED = 119,
 
     //1001~2000
     ERR_LOAD_MEDIA_ENGINE = 1001,
@@ -233,7 +233,6 @@ enum MEDIA_ENGINE_EVENT_CODE_TYPE
     MEDIA_ENGINE_RECORDING_WARNING = 2,
     MEDIA_ENGINE_PLAYOUT_WARNING = 3,
     MEDIA_ENGINE_AUDIO_FILE_MIX_FINISH = 10,
-    MEDIA_ENGINE_AUDIO_SAMPLE_RATE_RECONFIG_FINISH = 11,
     // media engine role changed
     MEDIA_ENGINE_ROLE_BROADCASTER_SOLO = 20,
     MEDIA_ENGINE_ROLE_BROADCASTER_INTERACTIVE = 21,
@@ -705,6 +704,12 @@ public:
      * When audio mixing file playback finished, this function will be called
      */
     virtual void onAudioMixingFinished() {
+    }
+
+    /**
+    * When audio effect playback finished, this function will be called
+    */
+    virtual void onAudioEffectFinished(int soundId) {
     }
 
     /**

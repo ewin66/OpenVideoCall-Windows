@@ -130,6 +130,12 @@
     <ClInclude Include="OpenVideoCallDlg.h">
       <Filter>UI\Dialog</Filter>
     </ClInclude>
+    <ClInclude Include="DskcapsetDlg.h">
+      <Filter>UI\Dialog</Filter>
+    </ClInclude>
+    <ClInclude Include="AGDesktopCaptureDlg.h">
+      <Filter>UI\Dialog</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -211,6 +217,12 @@
       <Filter>App</Filter>
     </ClCompile>
     <ClCompile Include="OpenVideoCallDlg.cpp">
+      <Filter>UI\Dialog</Filter>
+    </ClCompile>
+    <ClCompile Include="DskcapsetDlg.cpp">
+      <Filter>UI\Dialog</Filter>
+    </ClCompile>
+    <ClCompile Include="AGDesktopCaptureDlg.cpp">
       <Filter>UI\Dialog</Filter>
     </ClCompile>
   </ItemGroup>

@@ -108,6 +108,7 @@
     <ClInclude Include="AGButton.h" />
     <ClInclude Include="AGComboBox.h" />
     <ClInclude Include="AGConfig.h" />
+    <ClInclude Include="AGDesktopCaptureDlg.h" />
     <ClInclude Include="AGEdit.h" />
     <ClInclude Include="AGEngineEventHandler.h" />
     <ClInclude Include="AGHyperLink.h" />
@@ -117,6 +118,7 @@
     <ClInclude Include="AgoraCameraManager.h" />
     <ClInclude Include="AgoraPlayoutManager.h" />
     <ClInclude Include="AgoraObject.h" />
+    <ClInclude Include="DskcapsetDlg.h" />
     <ClInclude Include="OpenVideoCall.h" />
     <ClInclude Include="OpenVideoCallDlg.h" />
     <ClInclude Include="AGResourceVisitor.h" />
@@ -140,6 +142,7 @@
     <ClCompile Include="AGButton.cpp" />
     <ClCompile Include="AGComboBox.cpp" />
     <ClCompile Include="AGConfig.cpp" />
+    <ClCompile Include="AGDesktopCaptureDlg.cpp" />
     <ClCompile Include="AGEdit.cpp" />
     <ClCompile Include="AGEngineEventHandler.cpp" />
     <ClCompile Include="AGHyperLink.cpp" />
@@ -148,6 +151,7 @@
     <ClCompile Include="AgoraCameraManager.cpp" />
     <ClCompile Include="AgoraPlayoutManager.cpp" />
     <ClCompile Include="AgoraObject.cpp" />
+    <ClCompile Include="DskcapsetDlg.cpp" />
     <ClCompile Include="OpenVideoCall.cpp" />
     <ClCompile Include="OpenVideoCallDlg.cpp" />
     <ClCompile Include="AGResourceVisitor.cpp" />

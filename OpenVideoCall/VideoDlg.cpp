@@ -50,6 +50,7 @@ BEGIN_MESSAGE_MAP(CVideoDlg, CDialogEx)
 	ON_MESSAGE(WM_SHOWBIG, &CVideoDlg::OnShowBig)
 
 	ON_MESSAGE(WM_WINDOWSHARE, &CVideoDlg::OnWindowShareStart)
+	ON_MESSAGE(WM_DESKTOPSHARE, &CVideoDlg::OnDesktopShareStart)
 
 	ON_MESSAGE(WM_MSGID(EID_JOINCHANNEL_SUCCESS), &CVideoDlg::OnEIDJoinChannelSuccess)
 	ON_MESSAGE(WM_MSGID(EID_REJOINCHANNEL_SUCCESS), &CVideoDlg::OnEIDReJoinChannelSuccess)
@@ -474,24 +475,8 @@ void CVideoDlg::OnBnClickedBtnfullscr()
 
 void CVideoDlg::OnBnClickedScreenshare()
 {
-    IRtcEngine *lpRtcEngine = CAgoraObject::GetEngine();
-
-	CAgoraObject::GetAgoraObject()->EnableScreenCapture(::GetDesktopWindow(), 15, NULL, TRUE);
-	m_btnScrCap.SwitchButtonStatus(CAGButton::AGBTN_PUSH);
-    
-    CAgoraObject::GetAgoraObject()->EnableLocalRender(FALSE);
-
-    m_wndLocal.SetBackImage(IDB_DESKTOPSHARE_VIDEO, 145, 145);
-    m_wndLocal.ShowBackground(TRUE);
-
-    m_wndLocal.Invalidate(TRUE);
-    m_wndLocal.UpdateWindow();
-
-    Invalidate(TRUE);
-    UpdateWindow();
-
-//    Sleep(1000);
-    
+	m_dlgDesktopCapture.SaveScreen(NULL);
+	m_dlgDesktopCapture.ShowWindow(SW_MAXIMIZE);
 }
 
 void CVideoDlg::OnBnClickedWindowshare()
@@ -1084,6 +1069,7 @@ BOOL CVideoDlg::OnInitDialog()
 	m_dlgDevice.EnableDeviceTest(FALSE);
 
 	m_dlgScreenCapture.Create(CAGScreenCaptureDlg::IDD, this);
+	m_dlgDesktopCapture.Create(CAGDesktopCaptureDlg::IDD, this);
     m_dlgChat.Create(CChatDlg::IDD, this);
 	InitCtrls();
     
@@ -1205,6 +1191,27 @@ LRESULT CVideoDlg::OnWindowShareStart(WPARAM wParam, LPARAM lParam)
     }
 
 	CAgoraObject::GetAgoraObject()->EnableScreenCapture((HWND)wParam, 15, NULL, TRUE);
+	m_btnScrCap.SwitchButtonStatus(CAGButton::AGBTN_PUSH);
+
+	return 0;
+}
+
+LRESULT CVideoDlg::OnDesktopShareStart(WPARAM wParam, LPARAM lParam)
+{
+	LPDESKTOP_SHARE_PARAM	lpDesktopShareParam = (LPDESKTOP_SHARE_PARAM)(wParam);
+	CRect rcRegion;
+
+	CAgoraObject::GetAgoraObject()->EnableVideo();
+
+	rcRegion.left = lpDesktopShareParam->nX;
+	rcRegion.top = lpDesktopShareParam->nY;
+	rcRegion.right = rcRegion.left + lpDesktopShareParam->nWidth;
+	rcRegion.bottom = rcRegion.top + lpDesktopShareParam->nHeight;
+
+	CAgoraObject::GetAgoraObject()->EnableScreenCapture(NULL, lpDesktopShareParam->nFPS, &rcRegion, TRUE);
+	//	Sleep(1000);
+	//	CAgoraObject::GetAgoraObject()->SetVideoProfileEx(lpDesktopShareParam->nWidth, lpDesktopShareParam->nHeight, lpDesktopShareParam->nFPS, lpDesktopShareParam->nBitrate);
+
 	m_btnScrCap.SwitchButtonStatus(CAGButton::AGBTN_PUSH);
 
 	return 0;
