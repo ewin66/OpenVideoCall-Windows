@@ -3,6 +3,7 @@
 #include "AGVideoWnd.h"
 #include "DeviceDlg.h"
 #include "AGScreenCaptureDlg.h"
+#include "AGDesktopCaptureDlg.h"
 #include "ChatDlg.h"
 
 // CVideoDlg ¶Ô»°¿ò
@@ -52,6 +53,7 @@ protected:
 	afx_msg LRESULT OnShowModeChanged(WPARAM wParam, LPARAM lParam);
 	afx_msg LRESULT OnShowBig(WPARAM wParam, LPARAM lParam);
 	afx_msg LRESULT OnWindowShareStart(WPARAM wParam, LPARAM lParam);
+	afx_msg LRESULT OnDesktopShareStart(WPARAM wParam, LPARAM lParam);
 
 	afx_msg void OnBnClickedBtnmin();
 	afx_msg void OnBnClickedBtnclose();
@@ -144,8 +146,9 @@ private:
 	CDeviceDlg		m_dlgDevice;
     CChatDlg        m_dlgChat;
 	
-	CAGScreenCaptureDlg	m_dlgScreenCapture;
-		
+	CAGScreenCaptureDlg		m_dlgScreenCapture;
+	CAGDesktopCaptureDlg	m_dlgDesktopCapture;
+
 	CRect			m_rcVideoArea;
 	CRect			m_rcChildVideoArea;
 
