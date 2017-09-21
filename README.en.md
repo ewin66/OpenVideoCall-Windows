@@ -32,7 +32,7 @@ First, create a developer account at [Agora.io](https://dashboard.agora.io/signi
 #define APP_ID _T("Your App ID")
 ```
 
-Next, download the **Agora Video SDK** from [Agora.io SDK](https://www.agora.io/en/blog/download/). Unzip the downloaded SDK package and copy the **sdk** to the "OpenVideoCall" folder in project.
+Next, download the **Agora Video SDK** from [Agora.io SDK](https://www.agora.io/en/blog/download/). Unzip the downloaded SDK package and copy the **sdk** to the "OpenVideoCall" folder in project（the old one may be over written）.
 
 Finally, Open OpenVideoCall.sln, build the solution and run.
 
