@@ -43,7 +43,7 @@
 #include <afxdisp.h>
 #include <afxdisp.h>
 
-#pragma comment(lib, "agora_rtc_sdk.lib")
+#pragma comment(lib, "agorartc.lib")
 
 
 #ifdef _UNICODE
