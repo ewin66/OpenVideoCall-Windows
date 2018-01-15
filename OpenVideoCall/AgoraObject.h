@@ -26,6 +26,8 @@ class CAgoraObject
 public:
 	~CAgoraObject(void);
 
+	static CString LoadAppID();
+
 	void SetNetworkTestFlag(BOOL bEnable);
 	BOOL GetNetworkTestFlag();
 
