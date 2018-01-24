@@ -90,6 +90,7 @@ public:
 	static IRtcEngine *GetEngine();
 	
 	static CString GetSDKVersion();
+	static CString GetSDKVersionEx();
 
 	static BOOL EnableWhiteboardVer(BOOL bEnable);
 	static BOOL EnableWhiteboardFeq(BOOL bEnable);
