@@ -41,6 +41,28 @@ CString CAgoraObject::GetSDKVersion()
 	return strEngineVer;
 }
 
+CString CAgoraObject::GetSDKVersionEx()
+{
+	int nBuildNumber = 0;
+	const char *lpszEngineVer = getAgoraRtcEngineVersion(&nBuildNumber);
+
+	CString strEngineVer;
+	CString strVerEx;
+	SYSTEMTIME sysTime;
+
+#ifdef UNICODE
+	::MultiByteToWideChar(CP_ACP, MB_PRECOMPOSED, lpszEngineVer, -1, strEngineVer.GetBuffer(256), 256);
+	strEngineVer.ReleaseBuffer();
+#else
+	strEngineVer = lpszEngineVer;
+#endif
+
+	::GetLocalTime(&sysTime);
+	strVerEx.Format(_T("V%s, Build%d, %d/%d/%d, V%s"), strEngineVer, nBuildNumber, sysTime.wYear, sysTime.wMonth, sysTime.wDay, strEngineVer);
+
+	return strVerEx;
+}
+
 IRtcEngine *CAgoraObject::GetEngine()
 {
 	if(m_lpAgoraEngine == NULL)

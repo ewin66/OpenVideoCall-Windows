@@ -254,9 +254,10 @@ void COpenVideoCallDlg::DrawClient(CDC *lpDC)
 	lpDC->SetTextColor(RGB(0x91, 0x96, 0xA0));
 	lpDC->SetBkColor(RGB(0xFF, 0xFF, 0xFF));
 	lpString = AVC_VER;// _T("v1.3");
+	CString strVersion = CAgoraObject::GetSDKVersionEx();
 
 	rcText.SetRect(0, rcClient.Height() - 30, rcClient.Width(), rcClient.Height() - 5);
-	lpDC->DrawText(lpString, _tcslen(lpString), &rcText, DT_CENTER | DT_SINGLELINE);
+	lpDC->DrawText(strVersion, _tcslen(strVersion), &rcText, DT_CENTER | DT_SINGLELINE);
 	lpDC->SelectObject(defFont);
 }
 
