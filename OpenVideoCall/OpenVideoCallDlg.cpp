@@ -322,9 +322,9 @@ LRESULT COpenVideoCallDlg::OnJoinChannel(WPARAM wParam, LPARAM lParam)
 	vc.view = m_dlgVideo.GetLocalVideoWnd();
 	vc.renderMode = RENDER_MODE_TYPE::RENDER_MODE_FIT;
 
-	//cancel setVideoProfile since version 2.1.0
-    //m_nVideoSolution = m_dlgSetup.GetVideoSolution();
-    //lpRtcEngine->setVideoProfile((VIDEO_PROFILE_TYPE)m_nVideoSolution, m_dlgSetup.IsWHSwap());
+	//cancel setVideoProfile bitrate since version 2.1.0
+    m_nVideoSolution = m_dlgSetup.GetVideoSolution();
+    lpRtcEngine->setVideoProfile((VIDEO_PROFILE_TYPE)m_nVideoSolution, m_dlgSetup.IsWHSwap());
     lpAgoraObject->EnableVideo(TRUE);
 
 	m_dlgVideo.SetWindowText(strChannelName);
