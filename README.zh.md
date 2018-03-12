@@ -1,6 +1,6 @@
 # Open Video Call Windows
 
-*Read this in other languages: [English](README.en.md)*
+*Read this in other languages: [English](README.md)*
 
 这个开源示例项目演示了如何快速集成Agora视频SDK，实现多人视频通话。
 
@@ -35,7 +35,6 @@ Agora视频SDK支持 iOS / Android / Windows / macOS 等多个平台，你可以
 然后在 [Agora.io SDK](https://www.agora.io/cn/blog/download/) 下载 **视频通话 + 直播 SDK**，解压后将其中的 **sdk** 复制到本项目的 “OpenVideoCall” 文件夹下（并覆盖同名旧目录）。
 
 最后使用 VC++2013 打开 OpenVideoCall.sln，编译整个解决方案
-* SDK发布时分为x86和x64两个版本，编译x86版本时，请在VC解决方案平台中选择Win32选项；编译x64版本时，请在VC解决方案平台选项中选择x64选项。
 
 ## 运行环境
 * VC++2013或更高版本
