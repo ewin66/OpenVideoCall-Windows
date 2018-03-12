@@ -26,6 +26,33 @@ CAgoraObject::~CAgoraObject(void)
 {
 }
 
+CString CAgoraObject::LoadAppID()
+{
+	TCHAR szFilePath[MAX_PATH];
+	CString strAppID(APP_ID);
+
+	::GetModuleFileName(NULL, szFilePath, MAX_PATH);
+	LPTSTR lpLastSlash = _tcsrchr(szFilePath, _T('\\'));
+
+	if (lpLastSlash == NULL)
+		return strAppID;
+
+	SIZE_T nNameLen = MAX_PATH - (lpLastSlash - szFilePath + 1);
+	_tcscpy_s(lpLastSlash + 1, nNameLen, _T("AppID.ini"));
+
+	if (::GetFileAttributes(szFilePath) == INVALID_FILE_ATTRIBUTES)
+		return strAppID;
+
+	CString strResolution;
+
+	::GetPrivateProfileString(_T("AppID"), _T("AppID"), NULL, strAppID.GetBuffer(MAX_PATH), MAX_PATH, szFilePath);
+
+	strAppID.ReleaseBuffer();
+
+	return strAppID;
+}
+
+
 CString CAgoraObject::GetSDKVersion()
 {
 	int nBuildNumber = 0;
@@ -292,7 +319,7 @@ BOOL CAgoraObject::IsVideoEnabled()
 	return m_bVideoEnable;
 }
 
-BOOL CAgoraObject::EnableScreenCapture(HWND hWnd, int nCapFPS, LPCRECT lpCapRect, BOOL bEnable)
+BOOL CAgoraObject::EnableScreenCapture(HWND hWnd, int nCapFPS, LPCRECT lpCapRect, BOOL bEnable, int nBitrate)
 {
 	ASSERT(m_lpAgoraEngine != NULL);
 
@@ -303,18 +330,18 @@ BOOL CAgoraObject::EnableScreenCapture(HWND hWnd, int nCapFPS, LPCRECT lpCapRect
 
 	if (bEnable) {
 		if (lpCapRect == NULL)
-			ret = rep.startScreenCapture(hWnd, nCapFPS, NULL);
+			ret = m_lpAgoraEngine->startScreenCapture(hWnd, nCapFPS, NULL, nBitrate);
 		else {
 			rcCap.left = lpCapRect->left;
 			rcCap.right = lpCapRect->right;
 			rcCap.top = lpCapRect->top;
 			rcCap.bottom = lpCapRect->bottom;
 
-			ret = rep.startScreenCapture(hWnd, nCapFPS, &rcCap);
+			ret = m_lpAgoraEngine->startScreenCapture(hWnd, nCapFPS, &rcCap, nBitrate);
 		}
 	}
 	else
-		ret = rep.stopScreenCapture();
+		ret = m_lpAgoraEngine->stopScreenCapture();
 
 	if (ret == 0)
 		m_bScreenCapture = bEnable;
@@ -434,7 +461,7 @@ BOOL CAgoraObject::LocalVideoPreview(HWND hVideoWnd, BOOL bPreviewOn)
 	return nRet == 0 ? TRUE : FALSE;
 }
 
-BOOL CAgoraObject::SetLogFilter(LOG_FILTER_TYPE logFilterType, LPCTSTR lpLogPath)
+BOOL CAgoraObject::SetLogFilter(UINT logFilterType, LPCTSTR lpLogPath)
 {
 	int nRet = 0;
 	RtcEngineParameters rep(*m_lpAgoraEngine);

@@ -104,12 +104,14 @@ BOOL COpenVideoCallDlg::OnInitDialog()
     m_ftDes.CreateFont(15, 0, 0, 0, FW_NORMAL, FALSE, FALSE, 0, ANSI_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH | FF_SWISS, _T("Arial"));
     m_ftPhone.CreateFont(15, 0, 0, 0, FW_BOLD, FALSE, FALSE, 0, ANSI_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH | FF_SWISS, _T("Arial"));
 
-	if (_tcslen(APP_ID) == 0) {
+	CString strAppID = CAgoraObject::LoadAppID();
+
+	if (_tcslen(strAppID) == 0) {
 		MessageBox(_T("Please define your own APP_ID in source code"), _T("information"), MB_OK | MB_ICONINFORMATION);
 		::PostQuitMessage(0);
 	}
 
-	m_lpAgoraObject = CAgoraObject::GetAgoraObject(APP_ID);
+	m_lpAgoraObject = CAgoraObject::GetAgoraObject(strAppID);
 	m_lpRtcEngine = CAgoraObject::GetEngine();
     m_lpAgoraObject->EnableVideo(TRUE);
     m_lpAgoraObject->SetLogFilePath(NULL);
